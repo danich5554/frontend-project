@@ -1,5 +1,277 @@
-@import './styles/global/media.css';
-@import './styles/colors/colors.css';
-@import './styles/normalize.css';
-@import './styles/global/utility.css';
+/* Временно закомментируйте проблемные импорты */
+/* @import './styles/colors/colors.css'; */
+/* @import './styles/global/normalize.css'; */
 @import './styles/components/container.css';
+/* @import './styles/components/header.css'; */
+/* @import './styles/components/hero.css'; */
+
+/* Базовые стили */
+:root {
+  /* Основные цвета */
+  --white: #fff;
+  --primary: #7772f1;
+  --secondary: #00f0b5;
+  --success: #03cea4;
+  --danger: #ff4242;
+  --warning: #f89828;
+  --info: #5a87fc;
+  
+  /* Оттенки серого */
+  --gray-900: #1e212c;
+  --gray-800: #424551;
+  --gray-700: #787a80;
+  --gray-600: #9a9ca5;
+  --gray-500: #b3b7bc;
+  --gray-400: #d7dadd;
+  --gray-300: #e5e8ed;
+  --gray-200: #f4f5f6;
+  --gray-100: #f9f9f9;
+
+  /* Шрифты */
+  --font-family: "Lato", sans-serif;
+  --second-family: "Ubuntu", sans-serif;
+}
+
+/* Темная тема */
+[data-theme="dark"] {
+  --white: #1e212c;
+  --gray-100: #424551;
+  --gray-200: #787a80;
+  --gray-900: #ffffff;
+  --gray-800: #f4f5f6;
+  --gray-700: #e5e8ed;
+}
+
+/* Кнопка переключения темы */
+.theme-toggle {
+  position: fixed;
+  bottom: 20px;        
+  right: 20px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 1000;
+  font-size: 1.2rem;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+  background: var(--gray-900);
+}
+
+body {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--gray-900);
+  background-color: var(--white);
+  margin: 0;
+  padding: 0;
+}
+
+/* Стили для header */
+.header {
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-300);
+  padding: 20px 0;
+}
+/* 
+.container {
+  width: 100%;
+  padding-left: 8px;
+  padding-right: 8px;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 100%;
+} */
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-family: var(--second-family);
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--gray-900);
+}
+
+.nav__list {
+  display: flex;
+  list-style: none;
+  gap: 40px;
+}
+
+.nav__link {
+  color: var(--gray-800);
+  font-weight: 700;
+  transition: color 0.3s ease;
+}
+
+.nav__link:hover {
+  color: var(--primary);
+}
+
+.button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 4px;
+  font-family: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.button--primary {
+  background: var(--primary);
+  color: var(--white);
+}
+
+.button--primary:hover {
+  background: var(--gray-900);
+}
+
+/* Стили для hero */
+.hero {
+  background: var(--gray-100);
+  padding: 80px 0;
+  text-align: center;
+}
+
+.hero__content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.hero__title {
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--gray-900);
+  margin-bottom: 24px;
+  line-height: 1.2;
+}
+
+.hero__description {
+  font-size: 1.125rem;
+  color: var(--gray-700);
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+.hero__buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.button--secondary {
+  background: transparent;
+  color: var(--gray-900);
+  border: 1px solid var(--gray-400);
+}
+
+.button--secondary:hover {
+  background: var(--gray-900);
+  color: var(--white);
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 768px) {
+  .nav {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .nav__list {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+  
+  .hero__title {
+    font-size: 2rem;
+  }
+  
+  .hero__buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .button {
+    width: 200px;
+  }
+}
+/* Services Section */
+.services {
+  padding: 80px 0;
+  background: var(--white);
+}
+
+.services__title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: var(--gray-900);
+  margin-bottom: 16px;
+}
+
+.services__description {
+  text-align: center;
+  font-size: 1.125rem;
+  color: var(--gray-700);
+  margin-bottom: 60px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.services__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.service-card {
+  background: var(--white);
+  border: 1px solid var(--gray-300);
+  border-radius: 12px;
+  padding: 40px 30px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary);
+}
+
+.service-card__icon {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.service-card__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 16px;
+}
+
+.service-card__description {
+  color: var(--gray-700);
+  line-height: 1.6;
+}
