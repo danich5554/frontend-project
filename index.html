@@ -1,22 +1,509 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinanceFlow - Криптоинвестиции</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-    <style media="(prefers-color-scheme: light)">
-      @import url('./src/styles/colors/light.css');
+        body {
+            background-color: #0a0e17;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            padding: 20px 0;
+            position: absolute;
+            width: 100%;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #00F0B5, #00D4FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #00F0B5;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-login {
+            background: transparent;
+            color: #ffffff;
+            border: 1px solid #00F0B5;
+        }
+
+        .btn-register {
+            background: linear-gradient(90deg, #00F0B5, #00D4FF);
+            color: #0a0e17;
+            border: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 240, 181, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            padding: 180px 0 100px;
+            overflow: hidden;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            /* Для SVG фона */
+            background: url('src/assets/icons/background.svg') no-repeat center center;
+            background-size: cover;
+        }
+        .hero-background::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 14, 23, 0.7);
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .hero-text {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .hero-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(90deg, #00F0B5, #00D4FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #a0a0a0;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, #00F0B5, #00D4FF);
+            color: #0a0e17;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #ffffff;
+            padding: 12px 30px;
+            border: 1px solid #00F0B5;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: #a0a0a0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 30px;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            color: #a0a0a0;
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 80px 0;
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 40px;
+            font-weight: 700;
+            background: linear-gradient(90deg, #00F0B5, #00D4FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .stat-text {
+            color: #a0a0a0;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            color: #a0a0a0;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: #a0a0a0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: #00F0B5;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #a0a0a0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .hero-text {
+                margin-bottom: 40px;
+            }
+            
+            nav ul {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+        }
     </style>
-    <style media="(prefers-color-scheme: dark)">
-      @import url('./src/styles/colors/dark.css');
-    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">FinanceFlow</div>
+                <nav>
+                    <ul>
+                        <li><a href="#">Главная</a></li>
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="#">Услуги</a></li>
+                        <li><a href="#">Блог</a></li>
+                        <li><a href="#">Контакты</a></li>
+                    </ul>
+                </nav>
+                <div class="auth-buttons">
+                    <button class="btn btn-login">Войти</button>
+                    <button class="btn btn-register">Регистрация</button>
+                </div>
+            </div>
+        </div>
+    </header>
 
-    
-  </head>
-  <body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-background">
+            <img src="src/assets/icons/background.svg" alt="Background">
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Инвестируйте в <span>криптовалюту</span> с умом</h1>
+                    <p>FinanceFlow предоставляет передовые инструменты для торговли и инвестирования в криптовалюты. Начните свой путь к финансовой свободе уже сегодня.</p>
+                    <div class="hero-buttons">
+                        <button class="btn-primary">Начать сейчас</button>
+                        <button class="btn-secondary">Узнать больше</button>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <!-- Здесь будет изображение или график -->
+                    <div style="font-size: 200px;">📈</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <script type="module" src="/src/index.js"></script>
-  </body>
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Наши преимущества</h2>
+                <p>Мы предлагаем комплексное решение для всех ваших потребностей в криптоинвестициях</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Безопасность</h3>
+                    <p>Ваши активы защищены с помощью передовых технологий шифрования и многоуровневой системы безопасности.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💹</div>
+                    <h3>Высокая ликвидность</h3>
+                    <p>Торгуйте с минимальными спредами благодаря высокой ликвидности на наших платформах.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Мобильное приложение</h3>
+                    <p>Управляйте своими инвестициями в любое время и в любом месте с помощью нашего мобильного приложения.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">500K+</div>
+                    <div class="stat-text">Активных пользователей</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">$10B+</div>
+                    <div class="stat-text">Объем торгов</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">150+</div>
+                    <div class="stat-text">Доступных активов</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-text">Поддержка клиентов</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Готовы начать?</h2>
+            <p>Присоединяйтесь к миллионам пользователей, которые уже используют FinanceFlow для своих инвестиций</p>
+            <button class="btn-primary">Создать аккаунт</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>FinanceFlow</h3>
+                    <p>Передовая платформа для криптоинвестиций и торговли.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Продукты</h3>
+                    <ul>
+                        <li><a href="#">Торговая платформа</a></li>
+                        <li><a href="#">Мобильное приложение</a></li>
+                        <li><a href="#">API для разработчиков</a></li>
+                        <li><a href="#">Аналитика</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Компания</h3>
+                    <ul>
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="#">Карьера</a></li>
+                        <li><a href="#">Партнеры</a></li>
+                        <li><a href="#">Юридическая информация</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Поддержка</h3>
+                    <ul>
+                        <li><a href="#">Центр помощи</a></li>
+                        <li><a href="#">Связаться с нами</a></li>
+                        <li><a href="#">Сообщить о проблеме</a></li>
+                        <li><a href="#">Сообщество</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 FinanceFlow. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Добавим простой скрипт для плавной прокрутки
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
 </html>
